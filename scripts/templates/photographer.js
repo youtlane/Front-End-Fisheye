@@ -8,7 +8,7 @@ function photographerTemplate(data) {
         article.setAttribute("id", id);
         const img = document.createElement('img');
         img.setAttribute("src", picture);
-        img.setAttribute("alt", tagline);
+        img.setAttribute("alt", name);
         const h2 = document.createElement('h2');
         h2.textContent = name;
         article.appendChild(img);
