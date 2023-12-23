@@ -1,10 +1,17 @@
+
+import GetData from "../services/GetData.js";
+import { photographerTemplate } from "/scripts/templates/homepage.js";
+
+
+const dataService = new GetData();
+
 /*
     permet de recuperer le contenu du fichier et le transformer en format json et retourner les datas
 */
 async function getPhotographers() {
-    const data = await fetch("data/photographers.json"); //Récupération de contenu du fichier photographers.json via requete http
-    const dataJson = await data.json(); //transformation du resultat en format json
-    return (dataJson); // retourn les donnees du fichier json
+    const datajason = dataService.getDataFromUrl("/data/photographers.json");
+    return datajason;
+    
 }
 
 /*
@@ -28,22 +35,19 @@ async function displayData(photographers) {
 
         // Ajouter l'élément DOM de la carte utilisateur à la section des photographes
         photographersSection.appendChild(userCardDOM);
-
-        // Ajouter un gestionnaire d'événements pour le clic sur la carte utilisateur
-        userCardDOM.addEventListener("click", () => {
-            // Afficher l'ID du photographe dans la console
-            console.log('id ', id);
-
-            // Rediriger vers la page du photographe en utilisant la fonction redirectToPhotographerPage
-            redirectToPhotographerPage(id);
-        });
     });
-    
 }
 
 
-
-
+const logoImage = document.querySelector(".logo");
+// Ajouter un gestionnaire d'événements au clic sur l'image
+logoImage.addEventListener('click', function() {
+    // Rediriger vers la page index.html
+    window.location.href = 'index.html';
+});
+// Ajouter l'attribut alt à l'image
+logoImage.setAttribute('alt', 'Fisheye Home page');
+logoImage.setAttribute('aria-label' ,'fisheye home page' );
 
 
 async function init() {
@@ -59,17 +63,3 @@ function redirectToPhotographerPage(photographerId) {
 
 // Appeler la fonction d'initialisation pour démarrer l'application
 init();
-
-
-
-//pour la redirection (logo)
-/*document.addEventListener("DOMContentLoaded", function() {
-    // Sélectionnez l'élément image par son ID
-    const logoImage = document.querySelector(".logo");
-
-    // Ajoutez un écouteur d'événements pour le clic sur l'image
-    logoImage.addEventListener("click", function() {
-        // Redirigez vers la page d'accueil (à adapter en fonction de votre structure de projet)
-        window.location.href = "index.html";
-    });
-});*/
