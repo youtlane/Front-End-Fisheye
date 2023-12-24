@@ -1,35 +1,33 @@
-//Mettre le code JavaScript lié à la page photographer.html
+import { GetData } from "../services/GetData.js";
 
+const dataService = new GetData();
 
-/*
-    permet de recuperer le contenu du fichier et le transformer en format json et retourner les datas
-*/
-async function getPhotographers() {
-    const data = await fetch("data/photographers.json"); //Récupération de contenu du fichier photographers.json via requete http
-    const dataJson = await data.json(); //transformation du resultat en format json
-    return (dataJson); // retourn les donnees du fichier json
-}
-
-    
 function getPhotographerIdFromUrl() {
     const params = new URL(document.location).searchParams;
     return params.get('id');
 }
 
+
 async function init() {
     const photographerId = getPhotographerIdFromUrl();
     // Récupère les datas des photographes
-    const { media, photographers } = await getPhotographers();
+    const { media, photographers } = dataService.getDataFromUrl("/data/photographers.json");
+
+    console.log('media ', media);
+    console.log('photographers ', photographers);
 
     // Filter media items based on photographerId
+    // Filtrer les médias en fonction de l'identifiant du photographe
     const filteredMedia = media.filter(media => media.photographerId === parseInt(photographerId));
-    const filteredphotographer = photographers.find(photographer => photographer.id === parseInt(photographerId));
+
+    // Trouver le photographe correspondant à l'identifiant spécifié
+    const filteredPhotographer = photographers.find(photographer => photographer.id === parseInt(photographerId));
+
 
     console.log('media ', filteredMedia);
-    console.log('photographers ', filteredphotographer);
+    console.log('photographers ', filteredPhotographer);
 
 }
-
 
 
 init();
