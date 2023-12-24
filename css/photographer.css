@@ -83,8 +83,18 @@ form input {
 
 .main_content {
     margin: 0 100px;
+    
+}
+.grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 71px 95px;
 }
 .photographer_work{
     width: 350px;
     height: 300px;
+    object-fit: cover;
+}
+.filter {
+    margin: 20px 0 50px 100px;
 }

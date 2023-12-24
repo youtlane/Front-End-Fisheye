@@ -17,7 +17,7 @@ export class MainPhotographer {
         if (media instanceof Image){
             mediaElement = `<img class="photographer_work" src="./assets/work/${this.thePhotographer.name}/${media.image}"> `;
         }else if(media instanceof Video){
-            mediaElement = `<video class="photographer_work" src="./assets/work/${this.thePhotographer.name}/${media.video}"> `;
+            mediaElement = `<video class="photographer_work" src="./assets/work/${this.thePhotographer.name}/${media.video}"></video> `;
 
         }
 

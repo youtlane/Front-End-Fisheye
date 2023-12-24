@@ -2,7 +2,7 @@ import { GetData } from "../services/GetData.js";
 import { Photographer } from "../models/Photographer.js";
 import { HeaderPhotographer } from "../templates/HeaderPhotographer.js";
 import { MediaFactory } from "../factories/MediaFactory.js";
-import { MainPhotographer } from "../templates/Mainphotographer.js";
+import { MainPhotographer } from "../templates/MainPhotographer.js";
 
 
 //Instanciation du service de recuperation des donnees
