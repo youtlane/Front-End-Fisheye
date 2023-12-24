@@ -44,13 +44,13 @@ a {
     text-decoration: none;
 }
 
-.photographer_section article h2 {
+.photographer_section article h2, .name {
     color: #D3573C;
     font-size: 36px;
     margin: 20px 0 0;
 }
 
-.photographer_section article img {
+.photographer_section article img , .photographer-pic {
     height: 200px;
     width: 200px;
     border-radius: 50%;
