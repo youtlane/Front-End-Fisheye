@@ -10,8 +10,8 @@ const photographerService = new PhotographerTemplate();
     permet de recuperer le contenu du fichier et le transformer en format json et retourner les datas
 */
 async function getPhotographers() {
-    const dataJason = dataService.getDataFromUrl("/data/photographers.json");
-    return dataJason;
+    const dataJson = dataService.getDataFromUrl("/data/photographers.json");
+    return dataJson;
 }
 /**
  * Permet de créer et d'ajouter les éléments Photographes à la home page

@@ -1,6 +1,4 @@
 export class PhotographerTemplate {
-
-
     getPhotographerTemplate(photographer) {
         const article = document.createElement('article');
 
