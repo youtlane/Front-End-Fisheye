@@ -3,7 +3,7 @@ export class PhotographerTemplate {
         const article = document.createElement('article');
 
         const photographerCard = `
-                <a href="photographer.html?id=${photographer.id}" tabindex="0" role="link" aria-label="Profil de ${photographer.name}">
+                <a class="work_link" href="photographer.html?id=${photographer.id}" tabindex="0" role="link" aria-label="Profil de ${photographer.name}">
                     <img src="assets/photographers/${photographer.portrait}" alt="${photographer.name}">
                     <h2>${photographer.name}</h2>
                 </a>

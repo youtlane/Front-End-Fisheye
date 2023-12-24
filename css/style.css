@@ -39,7 +39,7 @@ h1 {
     flex-direction: column;
 }
 
-a {
+.work_link{
     text-align: center;
     text-decoration: none;
 }

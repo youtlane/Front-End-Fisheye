@@ -79,3 +79,12 @@ form input {
     border: none;
     border-radius: 5px;
 }
+
+
+.main_content {
+    margin: 0 100px;
+}
+.photographer_work{
+    width: 350px;
+    height: 300px;
+}
