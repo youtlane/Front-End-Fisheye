@@ -6,6 +6,8 @@
   <meta charset="utf-8">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <title>Fisheye - photographer </title>
 </head>
 
@@ -21,7 +23,8 @@
     </div>
     <div class="filter">
       <label for="">Trier par</label>
-      <select id="" name="" onchange="filter()">
+      <select id="sortOption">
+        <option></option>
         <option value="popular">Popularité</option>
         <option value="byDate">Date</option>
         <option value="byTitle">Titre</option>
@@ -42,9 +45,13 @@
       <form>
         <div>
           <label>Prénom</label>
-          <input class="text-control" type="text" id="first" name="first" aria-labelledby="first-name" required
-            aria-required=true />
-
+          <input class="text-control" type="text" id="first-name" name="first-name" aria-labelledby="first-name" required aria-required=true />
+          <label>Nom</label>
+          <input class="text-control" type="text" id="last-name" name="last-name" aria-labelledby="last-name" required aria-required=true />
+          <label>Email</label>
+          <input class="text-control" type="Email" id="email" name="email" aria-labelledby="email" required aria-required=true />
+          <label>Votre message</label>
+          <textarea class="message" aria-labelledby="message-label" id="message" name="message" maxlength="200" data-error="Votre message doit contenir entre 20 et 200 caractères." required></textarea>
         </div>
         <button class="contact_button">Envoyer</button>
       </form>

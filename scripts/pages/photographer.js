@@ -11,10 +11,19 @@ const dataService = new GetData();
 // identifiant de photograph recuperee depuis l'url
 const idUrlPhotographer = parseInt(new URL(document.location).searchParams.get('id'));
 
+// Declare variables at the module level
+let photographerData;
+let mediaData;
+
+
 async function displayPhotographerPage() {
     const { thePhotographer, mediasPhotographer } = await init();
     const header = new HeaderPhotographer();
     header.headerPagePhotographer(thePhotographer);
+    displayMedias(thePhotographer, mediasPhotographer);
+}
+
+function displayMedias(thePhotographer, mediasPhotographer) {
     const content = new MainPhotographer(thePhotographer, mediasPhotographer);
     mediasPhotographer
         .forEach(m => {
@@ -23,13 +32,11 @@ async function displayPhotographerPage() {
 }
 
 
-
 async function init() {
     // Récupère les datas des photographes
     const { photographers, media } = await dataService.getDataFromUrl("/data/photographers.json");
 
-    console.log(media);
-    console.log(photographers);
+
 
     // Filter media items based on photographerId
     // Filtrer les médias en fonction de l'identifiant du photographe
@@ -40,10 +47,40 @@ async function init() {
     const thePhotographer = photographers
         .map(p => new Photographer(p))
         .find(p => p.id === idUrlPhotographer);
-    console.log('photographers ', thePhotographer);
-    return { thePhotographer, mediasPhotographer };
+    
+    photographerData = thePhotographer;
+    mediaData = mediasPhotographer;
 
+
+    return { thePhotographer, mediasPhotographer };
 }
 
+export function sortMedias(selectedOption) {
+    let sortedMediasPhotographer;
+
+    if (selectedOption === 'popular') {
+        sortedMediasPhotographer = mediaData.slice().sort((a, b) => a.likes - b.likes);
+    } else if (selectedOption === 'byDate') {
+        sortedMediasPhotographer = mediaData.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+    } else if (selectedOption === 'byTitle') {
+        sortedMediasPhotographer = mediaData.slice().sort((a, b) => b.title.localeCompare(a.title));
+    }
+
+    const section = document.querySelector(".main_content");
+    // Clear the content of the section
+    section.innerHTML = '';
+
+    displayMedias(photographerData, sortedMediasPhotographer);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Wait for the DOM to be fully loaded before attaching the event listener
+    const sortSelect = document.getElementById('sortOption');
+
+    sortSelect.addEventListener('change', function () {
+        const selectedOption = sortSelect.value;
+        sortMedias(selectedOption);
+    });
+});
+
 displayPhotographerPage();
-//init();

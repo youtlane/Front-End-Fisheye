@@ -5,18 +5,16 @@ export class MainPhotographer {
     constructor(thePhotographer, mediasPhotographer) {
         this.thePhotographer = thePhotographer;
         this.mediasPhotographer = mediasPhotographer;
-    
-        console.log("xxxxx", thePhotographer.name);
     }
 
-    contentPagePhotographer(media){
+    contentPagePhotographer(media) {
         console.log("33", media, media instanceof Image, media instanceof Video); // Affiche "number"
 
         const section = document.querySelector(".main_content");
-        let mediaElement= '';
-        if (media instanceof Image){
+        let mediaElement = '';
+        if (media instanceof Image) {
             mediaElement = `<img class="photographer_work" src="./assets/work/${this.thePhotographer.name}/${media.image}"> `;
-        }else if(media instanceof Video){
+        } else if (media instanceof Video) {
             mediaElement = `<video class="photographer_work" src="./assets/work/${this.thePhotographer.name}/${media.video}"></video> `;
 
         }
@@ -25,13 +23,13 @@ export class MainPhotographer {
         
             <article class="card">
                 <div>
-                    <a href="">
+                    <a class="link_media" href="">
                         ${mediaElement}
-                        <p>${media.title}</p>
+                        <div class="card-footer">
+                            <p class="title_media">${media.title}</p>
+                            <span class="fas fa-heart" aria-hidden="true"></span>
+                        </div>
                     </a>
-                    <span>
-                        <i class="fa-solid fa-heart"></i>
-                    </span>
                 </div>
             </article>
         `;

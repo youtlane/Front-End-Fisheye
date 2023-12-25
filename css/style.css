@@ -39,36 +39,51 @@ h1 {
     flex-direction: column;
 }
 
-.work_link{
+.work_link {
     text-align: center;
     text-decoration: none;
 }
 
-.photographer_section article h2, .name {
+.photographer_section article h2,
+.name {
     color: #D3573C;
     font-size: 36px;
     margin: 20px 0 0;
 }
 
-.photographer_section article img , .photographer-pic {
+.photographer_section article img,
+.photographer-pic {
     height: 200px;
     width: 200px;
     border-radius: 50%;
 }
-p{
-    margin: 3px 0;
-}
+
+
+
 .localisation {
     font-size: 13px;
     color: #901C1C;
 
 }
+
 .tag {
     font-size: 10px;
-    
-}  
+
+}
+
 .price {
     color: #757575;
     font-size: 9px;
-    
+
+}
+
+.price,
+.tag,
+.price,
+.localisation {
+    margin: 3px 0;
+}
+
+.link_media {
+    text-decoration: none;
 }
