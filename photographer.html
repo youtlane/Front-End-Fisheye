@@ -21,15 +21,43 @@
     <div class="photograph-header">
       <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
     </div>
-    <div class="filter">
+    <!--<div class="filter">
       <label for="">Trier par</label>
       <select id="sortOption">
-        <option></option>
         <option value="popular">Popularité</option>
         <option value="byDate">Date</option>
         <option value="byTitle">Titre</option>
       </select>
+    </div>-->
+
+    <div class="filter">
+      <label for="sortOption">Trier par</label>
+      <div class="dropdown" id="customDropdown" role="listbox" aria-haspopup="listbox">
+          <button id="sortOptionButton" aria-haspopup="true" aria-expanded="false" aria-controls="sortOptionsListbox">
+              Popularité <i class="fas fa-chevron-down"></i>
+          </button>
+          <ul id="sortOptionsListbox" role="presentation" aria-hidden="true">
+              <li role="option" data-value="popular" aria-selected="true" id="optionPopular">Popularité</li>
+              <li role="option" data-value="byDate" id="optionByDate">Date</li>
+              <li role="option" data-value="byTitle" id="optionByTitle">Titre</li>
+          </ul>
+      </div>
     </div>
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="content">
       <section class="main_content grid-container"></section>
     </div>

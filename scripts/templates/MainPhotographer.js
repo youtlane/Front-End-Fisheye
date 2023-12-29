@@ -16,21 +16,20 @@ export class MainPhotographer {
             mediaElement = `<img class="photographer_work" src="./assets/work/${this.thePhotographer.name}/${media.image}"> `;
         } else if (media instanceof Video) {
             mediaElement = `<video class="photographer_work" src="./assets/work/${this.thePhotographer.name}/${media.video}"></video> `;
-
         }
 
         const photographWork = `
-        
             <article class="card">
-                <div>
-                    <a class="link_media" href="">
+                    <a class="link_media">
                         ${mediaElement}
                         <div class="card-footer">
-                            <p class="title_media">${media.title}</p>
-                            <span class="fas fa-heart" aria-hidden="true"></span>
+                            <h2 class="title_media">${media.title}</h2>
+                            <aside class="card-aside">
+                                <span class="nbrLikes">${media.likes}</span> 
+                                <span id="like-${media.id}" class="fas fa-heart" aria-hidden="true"></span>
+                            </aside>
                         </div>
                     </a>
-                </div>
             </article>
         `;
         section.insertAdjacentHTML('afterbegin', photographWork);

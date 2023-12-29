@@ -4,18 +4,16 @@ import { HeaderPhotographer } from "../templates/HeaderPhotographer.js";
 import { MediaFactory } from "../factories/MediaFactory.js";
 import { MainPhotographer } from "../templates/MainPhotographer.js";
 
-
+/*************************************************************************************************************/
 //Instanciation du service de recuperation des donnees
 const dataService = new GetData();
-
 // identifiant de photograph recuperee depuis l'url
 const idUrlPhotographer = parseInt(new URL(document.location).searchParams.get('id'));
-
 // Declare variables at the module level
 let photographerData;
 let mediaData;
 
-
+/*************************************************************************************************************/
 async function displayPhotographerPage() {
     const { thePhotographer, mediasPhotographer } = await init();
     const header = new HeaderPhotographer();
@@ -28,15 +26,26 @@ function displayMedias(thePhotographer, mediasPhotographer) {
     mediasPhotographer
         .forEach(m => {
             content.contentPagePhotographer(m);
+            addLikeEventListeners(); // Ajoutez cette ligne pour ajouter les écouteurs d'événements après l'affichage
         });
 }
 
 
+/*************************************************************************************************************/
+function addLikeEventListeners() {
+    // Sélectionnez tous les spans avec la classe 'fas fa-heart'
+    const likeIcons = document.querySelectorAll('.fas.fa-heart');
+
+    // Ajoutez un écouteur d'événements à chaque span
+    likeIcons.forEach(likeIcon => {
+        likeIcon.addEventListener('click', handleLikeClick);
+    });
+}
+
+/*************************************************************************************************************/
 async function init() {
     // Récupère les datas des photographes
     const { photographers, media } = await dataService.getDataFromUrl("/data/photographers.json");
-
-
 
     // Filter media items based on photographerId
     // Filtrer les médias en fonction de l'identifiant du photographe
@@ -47,14 +56,12 @@ async function init() {
     const thePhotographer = photographers
         .map(p => new Photographer(p))
         .find(p => p.id === idUrlPhotographer);
-    
     photographerData = thePhotographer;
     mediaData = mediasPhotographer;
-
-
     return { thePhotographer, mediasPhotographer };
 }
 
+/*************************************************************************************************************/
 export function sortMedias(selectedOption) {
     let sortedMediasPhotographer;
 
@@ -65,14 +72,11 @@ export function sortMedias(selectedOption) {
     } else if (selectedOption === 'byTitle') {
         sortedMediasPhotographer = mediaData.slice().sort((a, b) => b.title.localeCompare(a.title));
     }
-
     const section = document.querySelector(".main_content");
     // Clear the content of the section
     section.innerHTML = '';
-
     displayMedias(photographerData, sortedMediasPhotographer);
 }
-
 document.addEventListener('DOMContentLoaded', function () {
     // Wait for the DOM to be fully loaded before attaching the event listener
     const sortSelect = document.getElementById('sortOption');
@@ -82,5 +86,15 @@ document.addEventListener('DOMContentLoaded', function () {
         sortMedias(selectedOption);
     });
 });
+
+/*************************************************************************************************************/
+function handleLikeClick(event) {
+    // Récupérez l'ID du média à partir de l'ID du span
+    const spanId = event.target.id;
+    const mediaId = spanId.replace('like-', '');
+
+    // Utilisez l'ID du média comme nécessaire
+    console.log('Media ID clicked:', mediaId);
+}
 
 displayPhotographerPage();
