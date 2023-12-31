@@ -12,6 +12,7 @@ const idUrlPhotographer = parseInt(new URL(document.location).searchParams.get('
 // Declare variables at the module level
 let photographerData;
 let mediaData;
+let mainPhotographer = new MainPhotographer();
 
 /*************************************************************************************************************/
 async function displayPhotographerPage() {
@@ -19,27 +20,30 @@ async function displayPhotographerPage() {
     const header = new HeaderPhotographer();
     header.headerPagePhotographer(thePhotographer);
     displayMedias(thePhotographer, mediasPhotographer);
+
+    //Initialisation du nom dans la modal du formulaire
+    const filterMenu = document.querySelector(".modal_name");
+    filterMenu.innerHTML = thePhotographer.name;
 }
 
 function displayMedias(thePhotographer, mediasPhotographer) {
-    const content = new MainPhotographer(thePhotographer, mediasPhotographer);
+    mainPhotographer.thePhotographer = thePhotographer
+    mainPhotographer.mediasPhotographer = mediasPhotographer;
     mediasPhotographer
         .forEach(m => {
-            content.contentPagePhotographer(m);
-            addLikeEventListeners(); // Ajoutez cette ligne pour ajouter les écouteurs d'événements après l'affichage
+            mainPhotographer.contentPagePhotographer(m);
+            addLikeEventListeners(m); // Ajoutez cette ligne pour ajouter les écouteurs d'événements après l'affichage
         });
+    
+    updateNbrLikes();
 }
 
 
 /*************************************************************************************************************/
-function addLikeEventListeners() {
+function addLikeEventListeners(media) {
     // Sélectionnez tous les spans avec la classe 'fas fa-heart'
-    const likeIcons = document.querySelectorAll('.fas.fa-heart');
-
-    // Ajoutez un écouteur d'événements à chaque span
-    likeIcons.forEach(likeIcon => {
-        likeIcon.addEventListener('click', handleLikeClick);
-    });
+    const like = document.getElementById('like-' + media.id);
+    like.addEventListener('click', (event) => handleLikeClick(event, media));
 }
 
 /*************************************************************************************************************/
@@ -62,14 +66,18 @@ async function init() {
 }
 
 /*************************************************************************************************************/
+
+/*
+    permer de trier les médias par option selectionné
+*/
 export function sortMedias(selectedOption) {
     let sortedMediasPhotographer;
 
-    if (selectedOption === 'popular') {
+    if (selectedOption === 'Popularité') {
         sortedMediasPhotographer = mediaData.slice().sort((a, b) => a.likes - b.likes);
-    } else if (selectedOption === 'byDate') {
+    } else if (selectedOption === 'Date') {
         sortedMediasPhotographer = mediaData.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
-    } else if (selectedOption === 'byTitle') {
+    } else if (selectedOption === 'Titre') {
         sortedMediasPhotographer = mediaData.slice().sort((a, b) => b.title.localeCompare(a.title));
     }
     const section = document.querySelector(".main_content");
@@ -77,24 +85,95 @@ export function sortMedias(selectedOption) {
     section.innerHTML = '';
     displayMedias(photographerData, sortedMediasPhotographer);
 }
-document.addEventListener('DOMContentLoaded', function () {
-    // Wait for the DOM to be fully loaded before attaching the event listener
-    const sortSelect = document.getElementById('sortOption');
 
-    sortSelect.addEventListener('change', function () {
-        const selectedOption = sortSelect.value;
-        sortMedias(selectedOption);
+/*
+    Permet de dépiler le dropdown
+*/
+document.addEventListener('DOMContentLoaded', function () {
+    const filterMenu = document.querySelector(".dropdown_content");
+    const filterMenuButton = document.querySelector(".btn_list");
+    const filterButtons = document.querySelectorAll(".dropdown_content button");
+
+    // Ajout d'un listner click sur le filtre pour le tri
+    filterMenuButton.addEventListener("click", () => {
+        // Attribut du boutton filterMenuButton qui permet de voir si la liste est déjà dépilé
+        const isExpanded = filterMenuButton.getAttribute("aria-expanded") === "true" || false;
+
+        // Si premier click sur boutton depiler la liste ul; sinon cacher la liste
+        if (isExpanded) {
+            filterMenu.style.display = "none";
+        } else {
+            filterMenu.style.display = "contents";
+        }
+
+        filterMenuButton.setAttribute("aria-expanded", !isExpanded);
+        document.querySelector(".fa-chevron-down").classList.toggle("rotate");
+
+        const newAriaHiddenValue = filterMenu.style.display === "none" ? "true" : "false";
+        filterMenu.setAttribute("aria-hidden", newAriaHiddenValue);
+
+        const newTabIndexValue = filterMenu.style.display === "none" ? "-1" : "0";
+        filterButtons.forEach(button => button.setAttribute("tabindex", newTabIndexValue));
     });
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const currentFilter = document.querySelector('#current_filter');
+    const allFilters = Array.from(document.querySelectorAll('.dropdown_content li button'));
+
+    let filterAlreadySelected = allFilters.find(filter => filter.textContent == currentFilter.textContent);
+
+    filterAlreadySelected.parentElement.style.display = 'none';
+
+    allFilters.forEach(filter => {
+        filter.addEventListener('click', () => {
+            currentFilter.textContent = filter.textContent;
+
+            // Hide the entire <li> block
+            const parentLi = filter.parentElement;
+            parentLi.style.display = 'none';
+
+            // If a filter was previously selected, show its <li> block
+            if (filterAlreadySelected) {
+                const previousParentLi = filterAlreadySelected.parentElement;
+                previousParentLi.style.display = 'block';
+            }
+
+            filterAlreadySelected = filter;
+            sortMedias(filter.textContent);
+        });
+    });
+}); 
+
+
 /*************************************************************************************************************/
-function handleLikeClick(event) {
-    // Récupérez l'ID du média à partir de l'ID du span
+function handleLikeClick(event, media) {
     const spanId = event.target.id;
     const mediaId = spanId.replace('like-', '');
+    const likeContent = document.getElementById('nbrLikes-' + mediaId);
+    const hasLikedAttribute = likeContent.getAttribute('data-has-liked');
+    const hasLiked = hasLikedAttribute === 'true';
 
-    // Utilisez l'ID du média comme nécessaire
-    console.log('Media ID clicked:', mediaId);
+    // Verifie si déjà liké
+    if (!hasLiked) {
+        // Incremente par 1 si pas liké
+        media.likes += 1;
+        likeContent.setAttribute('data-has-liked', 'true');
+    } else {
+        // Decremente par 1 si déjà liké
+        media.likes -= 1;
+        likeContent.setAttribute('data-has-liked', 'false');
+    }
+
+    // modifie la valeur dans le DOM
+    likeContent.textContent = media.likes;
+
+    updateNbrLikes();
+}
+
+function updateNbrLikes() {
+    const nbrLikes = document.querySelector("#nbr-likes-content");
+    nbrLikes.innerHTML = mainPhotographer.countLikesMedias();
 }
 
 displayPhotographerPage();

@@ -21,65 +21,69 @@
     <div class="photograph-header">
       <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
     </div>
-    <!--<div class="filter">
-      <label for="">Trier par</label>
-      <select id="sortOption">
-        <option value="popular">Popularité</option>
-        <option value="byDate">Date</option>
-        <option value="byTitle">Titre</option>
-      </select>
-    </div>-->
 
     <div class="filter">
-      <label for="sortOption">Trier par</label>
-      <div class="dropdown" id="customDropdown" role="listbox" aria-haspopup="listbox">
-          <button id="sortOptionButton" aria-haspopup="true" aria-expanded="false" aria-controls="sortOptionsListbox">
-              Popularité <i class="fas fa-chevron-down"></i>
+      <label>Trier par</label>
+      <div class="filter_section">
+        <div class="dropdown">
+          <button class="btn_list" type="button" role="button" aria-haspopup="listbox" aria-expanded="false"
+            aria-controls="filter options" aria-label="Sort by">
+            <span id="current_filter">Titre</span>
+            <i class="fas fa-chevron-down"></i>
           </button>
-          <ul id="sortOptionsListbox" role="presentation" aria-hidden="true">
-              <li role="option" data-value="popular" aria-selected="true" id="optionPopular">Popularité</li>
-              <li role="option" data-value="byDate" id="optionByDate">Date</li>
-              <li role="option" data-value="byTitle" id="optionByTitle">Titre</li>
+
+          <ul class="dropdown_content" aria-hidden="true">
+            <li role="option">
+              <button type="button">Titre</button>
+            </li>
+            <li role="option">
+              <button type="button">Popularité</button>
+            </li>
+            <li role="option">
+              <button type="button">Date</button>
+            </li>
           </ul>
+        </div>
       </div>
     </div>
-  
-  
 
-
-
-
-
-
-
-
-
-
-
-
+    <div class="fixed-block">
+        <span class="nbr-likes">
+          <span id="nbr-likes-content"></span>
+          <span class="fas fa-heart" aria-hidden="true"></span>
+        </span>
+        <span class="price-date">
+          <span id="price-content"></span>€ / jour
+        </span>
+    </div>
 
     <div class="content">
       <section class="main_content grid-container"></section>
     </div>
-      
+
 
   </main>
   <div id="contact_modal">
     <div class="modal">
       <header>
         <h2>Contactez-moi</h2>
+        <p class="modal_name"></p>
         <img src="assets/icons/close.svg" onclick="closeModal()" />
       </header>
       <form>
         <div>
           <label>Prénom</label>
-          <input class="text-control" type="text" id="first-name" name="first-name" aria-labelledby="first-name" required aria-required=true />
+          <input class="text-control" type="text" id="first-name" name="first-name" aria-labelledby="first-name"
+            required aria-required=true />
           <label>Nom</label>
-          <input class="text-control" type="text" id="last-name" name="last-name" aria-labelledby="last-name" required aria-required=true />
+          <input class="text-control" type="text" id="last-name" name="last-name" aria-labelledby="last-name" required
+            aria-required=true />
           <label>Email</label>
-          <input class="text-control" type="Email" id="email" name="email" aria-labelledby="email" required aria-required=true />
+          <input class="text-control" type="Email" id="email" name="email" aria-labelledby="email" required
+            aria-required=true />
           <label>Votre message</label>
-          <textarea class="message" aria-labelledby="message-label" id="message" name="message" maxlength="200" data-error="Votre message doit contenir entre 20 et 200 caractères." required></textarea>
+          <textarea class="message" aria-labelledby="message-label" id="message" name="message" maxlength="200"
+            data-error="Votre message doit contenir entre 20 et 200 caractères." required></textarea>
         </div>
         <button class="contact_button">Envoyer</button>
       </form>

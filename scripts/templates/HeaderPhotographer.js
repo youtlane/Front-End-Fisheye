@@ -2,7 +2,10 @@ export class HeaderPhotographer {
 
     headerPagePhotographer(photographer) {
         const pageHeader = document.querySelector(".photograph-header");
-        console.log(photographer);
+        const priceContent = document.querySelector('#price-content');
+
+        priceContent.innerHTML = photographer.price;
+
         const personelInfos = `
             <div class="photographer-infos">
                 <h1 class="name name-xl">${photographer.name}</h1>

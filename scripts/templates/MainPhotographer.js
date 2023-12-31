@@ -25,7 +25,7 @@ export class MainPhotographer {
                         <div class="card-footer">
                             <h2 class="title_media">${media.title}</h2>
                             <aside class="card-aside">
-                                <span class="nbrLikes">${media.likes}</span> 
+                                <span id="nbrLikes-${media.id}" class="nbrLikes">${media.likes}</span> 
                                 <span id="like-${media.id}" class="fas fa-heart" aria-hidden="true"></span>
                             </aside>
                         </div>
@@ -35,8 +35,16 @@ export class MainPhotographer {
         section.insertAdjacentHTML('afterbegin', photographWork);
         //section.innerHTML = photographWork;
         return photographWork;
-
-
     }
+
+
+    countLikesMedias() {
+        let countNbrLikes = 0;
+        this.mediasPhotographer.forEach(m => {
+            countNbrLikes = countNbrLikes + m.likes;
+        });
+        return countNbrLikes;
+    }
+
 
 }
