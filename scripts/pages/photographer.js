@@ -145,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 }); 
 
-
 /*************************************************************************************************************/
 function handleLikeClick(event, media) {
     const spanId = event.target.id;
@@ -172,7 +171,7 @@ function handleLikeClick(event, media) {
 }
 
 function updateNbrLikes() {
-    const nbrLikes = document.querySelector("#nbr-likes-content");
+    const nbrLikes = document.querySelector(".nbr-likes-content");
     nbrLikes.innerHTML = mainPhotographer.countLikesMedias();
 }
 

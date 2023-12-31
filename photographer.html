@@ -7,54 +7,48 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
   <title>Fisheye - photographer </title>
 </head>
 
 <body>
-  <header>
+  <header class="top_pages">
     <a href="./index.html">
-      <img src="assets/images/logo.png" class="logo" />
+      <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" />
     </a>
   </header>
   <main id="main">
     <div class="photograph-header">
       <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
     </div>
-
     <div class="filter">
-      <label>Trier par</label>
-      <div class="filter_section">
-        <div class="dropdown">
-          <button class="btn_list" type="button" role="button" aria-haspopup="listbox" aria-expanded="false"
-            aria-controls="filter options" aria-label="Sort by">
-            <span id="current_filter">Titre</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-
-          <ul class="dropdown_content" aria-hidden="true">
-            <li role="option">
-              <button type="button">Titre</button>
-            </li>
-            <li role="option">
-              <button type="button">Popularité</button>
-            </li>
-            <li role="option">
-              <button type="button">Date</button>
-            </li>
-          </ul>
-        </div>
+      <label class="filter_title">Trier par</label>
+      <div class="dropdown">
+        <button class="btn_list" type="button" role="button" aria-haspopup="listbox" aria-expanded="false"
+          aria-controls="filter options" aria-label="Sort by">
+          <span id="current_filter">Popularité</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <ul class="dropdown_content" aria-hidden="true">
+          <li role="option">
+            <button type="button">Titre</button>
+          </li>
+          <li role="option">
+            <button type="button">Popularité</button>
+          </li>
+          <li role="option">
+            <button type="button">Date</button>
+          </li>
+        </ul>
       </div>
     </div>
-
     <div class="fixed-block">
-        <span class="nbr-likes">
-          <span id="nbr-likes-content"></span>
-          <span class="fas fa-heart" aria-hidden="true"></span>
-        </span>
-        <span class="price-date">
-          <span id="price-content"></span>€ / jour
-        </span>
+      <span class="nbr-likes">
+        <p class="nbr-likes-content"></p>
+        <span class="fas fa-heart" aria-hidden="true"></span>
+      </span>
+      <span class="price-date">
+        <span id="price-content"></span>€ / jour
+      </span>
     </div>
 
     <div class="content">
@@ -65,13 +59,12 @@
   </main>
   <div id="contact_modal">
     <div class="modal">
-      <header>
+      <header class="modal_header">
         <h2>Contactez-moi</h2>
-        <p class="modal_name"></p>
         <img src="assets/icons/close.svg" onclick="closeModal()" />
       </header>
+      <p class="modal_name"></p>
       <form>
-        <div>
           <label>Prénom</label>
           <input class="text-control" type="text" id="first-name" name="first-name" aria-labelledby="first-name"
             required aria-required=true />
@@ -84,7 +77,6 @@
           <label>Votre message</label>
           <textarea class="message" aria-labelledby="message-label" id="message" name="message" maxlength="200"
             data-error="Votre message doit contenir entre 20 et 200 caractères." required></textarea>
-        </div>
         <button class="contact_button">Envoyer</button>
       </form>
     </div>
