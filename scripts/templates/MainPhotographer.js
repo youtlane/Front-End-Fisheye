@@ -10,12 +10,14 @@ export class MainPhotographer {
     contentPagePhotographer(media) {
         console.log("33", media, media instanceof Image, media instanceof Video); // Affiche "number"
 
+        const photographerName = this.thePhotographer.name.split(' ')[0].replace('-', ' ');
+        console.log('photographerName ', photographerName);
         const section = document.querySelector(".main_content");
         let mediaElement = '';
         if (media instanceof Image) {
-            mediaElement = `<img class="photographer_work" src="./assets/work/${this.thePhotographer.name}/${media.image}"> `;
+            mediaElement = `<img class="photographer_work" src="./assets/work/${photographerName}/${media.image}"> `;
         } else if (media instanceof Video) {
-            mediaElement = `<video class="photographer_work" src="./assets/work/${this.thePhotographer.name}/${media.video}"></video> `;
+            mediaElement = `<video class="photographer_work" src="./assets/work/${photographerName}/${media.video}"></video> `;
         }
 
         const photographWork = `
