@@ -34,7 +34,7 @@ function displayMedias(thePhotographer, mediasPhotographer) {
             mainPhotographer.contentPagePhotographer(m);
             addLikeEventListeners(m); // Ajoutez cette ligne pour ajouter les écouteurs d'événements après l'affichage
         });
-    
+
     updateNbrLikes();
 }
 
@@ -143,7 +143,70 @@ document.addEventListener('DOMContentLoaded', function () {
             sortMedias(filter.textContent);
         });
     });
-}); 
+});
+
+
+
+
+/*************************************************************************************************************/
+/**
+ * modal contact
+ */
+
+document.addEventListener('DOMContentLoaded', function () {
+    const btnForm = document.querySelector('.contact_button');
+
+    btnForm.addEventListener('click', function (event) {
+        event.preventDefault(); // Empêche le comportement par défaut du formulaire
+
+        // Récupère les données du formulaire
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        // Valide les données
+        if (firstName.length < 2) {
+            console.log("Le prénom doit avoir au moins 2 caractères.");
+            return;
+        }
+
+        if (lastName.length < 2) {
+            console.log("Le nom doit avoir au moins 2 caractères.");
+            return;
+        }
+
+        // Utilise une expression régulière pour valider le format de l'email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            console.log("Veuillez saisir une adresse e-mail valide.");
+            return;
+        }
+
+        if (message.length < 20 || message.length > 500) {
+            console.log("Le message doit contenir entre 20 et 500 caractères.");
+            return;
+        }
+
+        // Si toutes les validations passent, affiche les données dans la console
+        console.log('Prénom:', firstName);
+        console.log('Nom:', lastName);
+        console.log('Email:', email);
+        console.log('Message:', message);
+
+        // Ajoutez ici le code pour envoyer les données au serveur si nécessaire
+    });
+});
+
+/*************************************************************************************************************/
+/**
+ * the lightboox
+ */
+
+
+
+
+
 
 /*************************************************************************************************************/
 function handleLikeClick(event, media) {

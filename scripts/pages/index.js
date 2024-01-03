@@ -1,4 +1,3 @@
-
 import { Photographer } from "../models/Photographer.js";
 import { GetData } from "../services/GetData.js";
 import { PhotographerTemplate } from "../templates/homepage.js";
