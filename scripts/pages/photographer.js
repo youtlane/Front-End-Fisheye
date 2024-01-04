@@ -77,13 +77,18 @@ async function init() {
 export function sortMedias(selectedOption) {
     let sortedMediasPhotographer;
 
+    // Sélection de l'option de tri
     if (selectedOption === 'Popularité') {
+        // Tri des médias par ordre croissant de likes
         sortedMediasPhotographer = mediaData.slice().sort((a, b) => a.likes - b.likes);
     } else if (selectedOption === 'Date') {
+        // Tri des médias par ordre décroissant de date
         sortedMediasPhotographer = mediaData.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
     } else if (selectedOption === 'Titre') {
+        // Tri des médias par ordre alphabétique décroissant des titres
         sortedMediasPhotographer = mediaData.slice().sort((a, b) => b.title.localeCompare(a.title));
     }
+
     const section = document.querySelector(".main_content");
     // Clear the content of the section
     section.innerHTML = '';
@@ -123,6 +128,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     const currentFilter = document.querySelector('#current_filter');
+    // Sélection de tous les éléments <button> à l'intérieur des balises <li> 
+    // dans les éléments avec la classe 'dropdown_content'
     const allFilters = Array.from(document.querySelectorAll('.dropdown_content li button'));
 
     let filterAlreadySelected = allFilters.find(filter => filter.textContent == currentFilter.textContent);
