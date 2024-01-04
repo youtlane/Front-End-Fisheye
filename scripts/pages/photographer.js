@@ -3,6 +3,7 @@ import { Photographer } from "../models/Photographer.js";
 import { HeaderPhotographer } from "../templates/HeaderPhotographer.js";
 import { MediaFactory } from "../factories/MediaFactory.js";
 import { MainPhotographer } from "../templates/MainPhotographer.js";
+import { displayLightbox } from "../utils/lightbox.js"
 
 /*************************************************************************************************************/
 //Instanciation du service de recuperation des donnees
@@ -44,6 +45,9 @@ function addLikeEventListeners(media) {
     // Sélectionnez tous les spans avec la classe 'fas fa-heart'
     const like = document.getElementById('like-' + media.id);
     like.addEventListener('click', (event) => handleLikeClick(event, media));
+
+    const img = document.getElementById('img-' + media.id);
+    img.addEventListener('click', (event) => handleImgClick(event, media));
 }
 
 /*************************************************************************************************************/
@@ -199,16 +203,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /*************************************************************************************************************/
-/**
- * the lightboox
- */
-
-
-
-
-
-
-/*************************************************************************************************************/
 function handleLikeClick(event, media) {
     const spanId = event.target.id;
     const mediaId = spanId.replace('like-', '');
@@ -229,6 +223,17 @@ function handleLikeClick(event, media) {
 
     // modifie la valeur dans le DOM
     likeContent.textContent = media.likes;
+
+    updateNbrLikes();
+}
+
+
+function handleImgClick(event, media) {
+    console.log('xmen');
+    const spanId = event.target.id;
+    const mediaId = spanId.replace('img-', '');
+
+    displayLightbox(media, mainPhotographer.thePhotographer, mediaData);
 
     updateNbrLikes();
 }

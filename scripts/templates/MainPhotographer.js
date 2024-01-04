@@ -9,13 +9,12 @@ export class MainPhotographer {
 
     contentPagePhotographer(media) {
         const photographerName = this.thePhotographer.name.split(' ')[0].replace('-', ' ');
-        console.log('photographerName ', photographerName);
         const section = document.querySelector(".main_content");
         let mediaElement = '';
         if (media instanceof Image) {
-            mediaElement = `<img class="photographer_work" onclick="displayLightbox(${media.id}, 'image')" src="./assets/work/${photographerName}/${media.image}"> `;
+            mediaElement = `<img class="photographer_work" id="img-${media.id}" src="./assets/work/${photographerName}/${media.image}"> `;
         } else if (media instanceof Video) {
-            mediaElement = `<video class="photographer_work" onclick="displayLightbox(${media.id}, 'video')" src="./assets/work/${photographerName}/${media.video}"></video> `;
+            mediaElement = `<video class="photographer_work" id="img-${media.id}" src="./assets/work/${photographerName}/${media.video}"></video> `;
         }
 
         const photographWork = `
@@ -36,7 +35,7 @@ export class MainPhotographer {
         //section.innerHTML = photographWork;
         return photographWork;
     }
-  
+
 
     countLikesMedias() {
         let countNbrLikes = 0;
@@ -45,6 +44,4 @@ export class MainPhotographer {
         });
         return countNbrLikes;
     }
-
-
 }
