@@ -12,9 +12,9 @@ export class MainPhotographer {
         const section = document.querySelector(".main_content");
         let mediaElement = '';
         if (media instanceof Image) {
-            mediaElement = `<img class="photographer_work" id="img-${media.id}" src="./assets/work/${photographerName}/${media.image}"> `;
+            mediaElement = `<img class="photographer_work" id="media-${media.id}" src="./assets/work/${photographerName}/${media.image}" alt="${media.title}"> `;
         } else if (media instanceof Video) {
-            mediaElement = `<video class="photographer_work" id="img-${media.id}" src="./assets/work/${photographerName}/${media.video}"></video> `;
+            mediaElement = `<video class="photographer_work" id="media-${media.id}" src="./assets/work/${photographerName}/${media.video}" title="${media.title}"></video>`;
         }
 
         const photographWork = `

@@ -9,7 +9,7 @@ export class HeaderPhotographer {
         const personelInfos = `
             <div class="photographer-infos">
                 <h1 class="name name-xl">${photographer.name}</h1>
-                <p class="localisation localisation-xl">${photographer.city}, ${photographer.country}</p>
+                <span class="localisation localisation-xl">${photographer.city}, ${photographer.country}</span>
                 <p class="tag tag-xl">${photographer.tagline}</p>
             </div>
         `;

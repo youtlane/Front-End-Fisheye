@@ -46,7 +46,7 @@ function addLikeEventListeners(media) {
     const like = document.getElementById('like-' + media.id);
     like.addEventListener('click', (event) => handleLikeClick(event, media));
 
-    const img = document.getElementById('img-' + media.id);
+    const img = document.getElementById('media-' + media.id);
     img.addEventListener('click', (event) => handleImgClick(event, media));
 }
 
@@ -238,7 +238,7 @@ function handleLikeClick(event, media) {
 function handleImgClick(event, media) {
     console.log('xmen');
     const spanId = event.target.id;
-    const mediaId = spanId.replace('img-', '');
+    const mediaId = spanId.replace('media-', '');
 
     displayLightbox(media, mainPhotographer.thePhotographer, mediaData);
 

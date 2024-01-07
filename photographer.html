@@ -21,14 +21,13 @@
       <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
     </div>
     <div class="filter">
-      <label class="filter_title">Trier par</label>
+      <span class="filter_title">Trier par</span>
       <div class="dropdown">
-        <button class="btn_list" type="button" role="button" aria-haspopup="listbox" aria-expanded="false"
-          aria-controls="filter options" aria-label="Sort by">
+        <button class="btn_list" type="button" role="button">
           <span id="current_filter">Popularité</span>
           <i class="fas fa-chevron-down"></i>
         </button>
-        <ul class="dropdown_content" aria-hidden="true">
+        <ul class="dropdown_content" aria-hidden="true" role="listbox">
           <li role="option">
             <button type="button">Titre</button>
           </li>
@@ -42,13 +41,13 @@
       </div>
     </div>
     <div class="fixed-block">
-      <span class="nbr-likes">
-        <p class="nbr-likes-content"></p>
+      <div class="nbr-likes">
+        <span class="nbr-likes-content"></span>
         <span class="fas fa-heart" aria-hidden="true"></span>
-      </span>
-      <span class="price-date">
+      </div>
+      <div class="price-date">
         <span id="price-content"></span>€ / jour
-      </span>
+      </div>
     </div>
     <!--the work of photographers-->
     <div class="content">
@@ -57,12 +56,10 @@
     <!--lightbox-->
     <div class="lightbox_wrapper wrapper" aria-modal="true" role="dialog">
       <div class="lightbox">
-
-        <img class="close-btn" src="assets/icons/close-lightbox.svg" />
-        <img class="btn_next" src="assets/icons/next.svg" />
-        <img class="btn_prev" src="assets/icons/prev.svg" />
-        <figure class="lightbox_media" role="media">
-        </figure>
+        <img class="close-btn" src="assets/icons/close-lightbox.svg" alt="button pour fermer" />
+        <img class="btn_next" src="assets/icons/next.svg" alt="button pour l'image suivante" />
+        <img class="btn_prev" src="assets/icons/prev.svg" alt="button pour l'mage précédente" />
+        <figure class="lightbox_media"></figure>
       </div>
     </div>
   </main>
@@ -70,24 +67,29 @@
     <div class="modal">
       <header class="modal_header">
         <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" onclick="closeModal()" />
+        <img src="assets/icons/close.svg" alt="button pour fermer le modal" onclick="closeModal()" />
       </header>
-      <p class="modal_name"></p>
+      <span class="modal_name"></span>
       <form>
-          <label>Prénom</label>
-          <input class="text-control" type="text" id="first-name" name="first-name" aria-labelledby="first-name"
-            required aria-required=true />
-          <label>Nom</label>
-          <input class="text-control" type="text" id="last-name" name="last-name" aria-labelledby="last-name" required
-            aria-required=true />
-          <label>Email</label>
-          <input class="text-control" type="Email" id="email" name="email" aria-labelledby="email" required
-            aria-required=true />
-          <label>Votre message</label>
-          <textarea class="message" aria-labelledby="message-label" id="message" name="message" maxlength="200"
-            data-error="Votre message doit contenir entre 20 et 200 caractères." required></textarea>
+        <label for="first-name">Prénom</label>
+        <input class="text-control" type="text" id="first-name" name="first-name" aria-labelledby="first-name" required
+          aria-required="true" />
+
+        <label for="last-name">Nom</label>
+        <input class="text-control" type="text" id="last-name" name="last-name" aria-labelledby="last-name" required
+          aria-required="true" />
+
+        <label for="email">Email</label>
+        <input class="text-control" type="Email" id="email" name="email" aria-labelledby="email" required
+          aria-required="true" />
+
+        <label for="message">Votre message</label>
+        <textarea class="message" id="message" name="message" maxlength="200"
+          data-error="Votre message doit contenir entre 20 et 200 caractères." required></textarea>
+
         <button class="contact_button validation">Envoyer</button>
       </form>
+
     </div>
   </div>
 
