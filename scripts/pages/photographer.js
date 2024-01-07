@@ -47,13 +47,13 @@ function addLikeEventListeners(media) {
     like.addEventListener('click', (event) => handleLikeClick(event, media));
 
     const img = document.getElementById('media-' + media.id);
-    img.addEventListener('click', (event) => handleImgClick(event, media));
+    img.addEventListener('click', (event) => handleImgClick(media));
 }
 
 /*************************************************************************************************************/
 async function init() {
     // Récupère les datas des photographes
-    const { photographers, media } = await dataService.getDataFromUrl("/data/photographers.json");
+    const { photographers, media } = await dataService.getDataFromUrl();
 
     // Filter media items based on photographerId
     // Filtrer les médias en fonction de l'identifiant du photographe
@@ -99,34 +99,42 @@ export function sortMedias(selectedOption) {
     Permet de dépiler le dropdown
 */
 document.addEventListener('DOMContentLoaded', function () {
-    const filterMenu = document.querySelector(".dropdown_content");
     const filterMenuButton = document.querySelector(".btn_list");
-    const filterButtons = document.querySelectorAll(".dropdown_content button");
 
     // Ajout d'un listner click sur le filtre pour le tri
     filterMenuButton.addEventListener("click", () => {
-        // Attribut du boutton filterMenuButton qui permet de voir si la liste est déjà dépilé
-        const isExpanded = filterMenuButton.getAttribute("aria-expanded") === "true" || false;
-
-        // Si premier click sur boutton depiler la liste ul; sinon cacher la liste
-        if (isExpanded) {
-            filterMenu.style.display = "none";
-        } else {
-            filterMenu.style.display = "contents";
-        }
-
-        filterMenuButton.setAttribute("aria-expanded", !isExpanded);
-        document.querySelector(".fa-chevron-down").classList.toggle("rotate");
-
-        const newAriaHiddenValue = filterMenu.style.display === "none" ? "true" : "false";
-        filterMenu.setAttribute("aria-hidden", newAriaHiddenValue);
-
-        const newTabIndexValue = filterMenu.style.display === "none" ? "-1" : "0";
-        filterButtons.forEach(button => button.setAttribute("tabindex", newTabIndexValue));
+        listFilterMenu(filterMenuButton);
     });
 });
 
+function listFilterMenu(filterMenuButton) {
+    const filterMenu = document.querySelector(".dropdown_content");
+    const filterButtons = document.querySelectorAll(".dropdown_content button");
+
+    // Attribut du boutton filterMenuButton qui permet de voir si la liste est déjà dépilé
+    const isExpanded = filterMenuButton.getAttribute("aria-expanded") === "true" || false;
+
+    // Si premier click sur boutton depiler la liste ul; sinon cacher la liste
+    if (isExpanded) {
+        filterMenu.style.display = "none";
+    } else {
+        filterMenu.style.display = "contents";
+    }
+
+    filterMenuButton.setAttribute("aria-expanded", !isExpanded);
+    document.querySelector(".fa-chevron-down").classList.toggle("rotate");
+
+    const newAriaHiddenValue = filterMenu.style.display === "none" ? "true" : "false";
+    filterMenu.setAttribute("aria-hidden", newAriaHiddenValue);
+
+    const newTabIndexValue = filterMenu.style.display === "none" ? "-1" : "0";
+    filterButtons.forEach(button => button.setAttribute("tabindex", newTabIndexValue));
+
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+    const filterMenuButton = document.querySelector(".btn_list");
+
     const currentFilter = document.querySelector('#current_filter');
     // Sélection de tous les éléments <button> à l'intérieur des balises <li> 
     // dans les éléments avec la classe 'dropdown_content'
@@ -152,11 +160,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             filterAlreadySelected = filter;
             sortMedias(filter.textContent);
+
+            listFilterMenu(filterMenuButton);
         });
     });
 });
-
-
 
 
 /*************************************************************************************************************/
@@ -235,11 +243,7 @@ function handleLikeClick(event, media) {
 }
 
 
-function handleImgClick(event, media) {
-    console.log('xmen');
-    const spanId = event.target.id;
-    const mediaId = spanId.replace('media-', '');
-
+function handleImgClick(media) {
     displayLightbox(media, mainPhotographer.thePhotographer, mediaData);
 
     updateNbrLikes();

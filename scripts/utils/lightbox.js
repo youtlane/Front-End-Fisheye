@@ -77,6 +77,20 @@ function closeLightbox() {
     lightboxWrapper.style.display = "none";
 }
 
+document.addEventListener('keyup', e => {
+    switch(e.key) {
+        case 'Escape':
+            closeLightbox();
+            break;
+        case 'ArrowLeft':
+            previousMedia();
+            break;
+        case 'ArrowRight':
+            nextMedia();
+            break;
+    };
+});
+
 // Ajout d'écouteurs d'événements aux boutons de navigation et de fermeture
 btnPrevious.addEventListener('click', () => previousMedia());
 btnNext.addEventListener('click', () => nextMedia());

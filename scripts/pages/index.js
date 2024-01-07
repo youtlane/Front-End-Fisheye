@@ -9,7 +9,7 @@ const photographerService = new PhotographerTemplate();
     permet de recuperer le contenu du fichier et le transformer en format json et retourner les datas
 */
 async function getPhotographers() {
-    const dataJson = dataService.getDataFromUrl("/data/photographers.json");
+    const dataJson = dataService.getDataFromUrl();
     return dataJson;
 }
 /**

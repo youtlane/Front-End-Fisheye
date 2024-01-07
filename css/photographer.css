@@ -10,18 +10,7 @@
     background-color: rgba(26, 39, 156, 0.4);
 }
 
-.wrapper {
-    z-index: 10;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-}
+
 
 
 .photograph-header {
@@ -212,7 +201,7 @@ form input {
 .filter {
     display: flex;
     align-items: center;
-    height: 50px;
+    height: 70px;
     gap: 25px;
     margin: 20px 0 30px 100px;
 }
@@ -227,8 +216,9 @@ form input {
 }
 
 .dropdown {
-    /*position: relative;*/
-    /* Ajout de cette ligne */
+    position: relative;
+    height: 100%;
+    
 }
 
 .dropdown_content {
@@ -240,7 +230,7 @@ form input {
 .dropdown_content li {
     position: relative;
     width: 150px;
-
+    z-index: 100;
 }
 
 .dropdown_content li::before {
@@ -306,7 +296,18 @@ form input {
     border-radius: 5px;
     background: #901C1C;
 }*/
-
+.wrapper {
+    z-index: 10;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+}
 
 .lightbox {
     position: relative;
@@ -314,13 +315,10 @@ form input {
     justify-content: center;
     align-items: center;
     width: 100%;
-    /*! max-width: 1000px; */
-    /*! height: 90%; */
-    /*! max-height: 1000px; */
+    height: 100%;
     background-color: white;
     padding: 25px 60px 0;
     border-radius: 5px;
-    /* opacity: 0; */
     transform: translateY(-150px);
     animation: fadeIn .3s ease-in-out forwards;
 }
@@ -334,8 +332,7 @@ form input {
 
 .photo_lightbox,
 .video_lightbox {
-    /* height: calc(100% - 50px);*/
-    height: 565px;
+    height: 645px;
 }
 
 .lightbox_media figcaption {
