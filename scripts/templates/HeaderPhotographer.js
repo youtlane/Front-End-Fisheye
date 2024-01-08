@@ -13,7 +13,7 @@ export class HeaderPhotographer {
                 <p class="tag tag-xl">${photographer.tagline}</p>
             </div>
         `;
-        pageHeader.insertAdjacentHTML('beforeend', `<img class="photographer-pic" src="/assets/photographers/${photographer.portrait}" alt="">`);
+        pageHeader.insertAdjacentHTML('beforeend', `<img class="photographer-pic" src="./assets/photographers/${photographer.portrait}" alt="">`);
         pageHeader.insertAdjacentHTML('afterbegin', personelInfos);
         return personelInfos;
     }
