@@ -20,13 +20,9 @@ let photographerName = '';
 export function displayLightbox(media, thePhotographer, medias) {
     mediaList = medias;
     selectedMedia = media;
-    // Extraction du prénom du photographe à partir de son nom complet, en supprimant les espaces et remplaçant les tirets par des espaces
     photographerName = thePhotographer.name.split(' ')[0].replace('-', ' ');
-
     lightboxWrapper.style.display = 'flex';
     index = medias.findIndex(m => m.id === media.id);
-
-    // Appel de la fonction pour afficher le média
     displayMedia();
 }
 
@@ -54,20 +50,16 @@ function displayMedia() {
 
 // Fonction pour afficher le média suivant
 function nextMedia() {
-    // Vérification pour éviter de dépasser le début de la liste
     if (index > 0) {
         index = index - 1;
-        // Appel de la fonction pour afficher le média
         displayMedia();
     }
 }
 
 // Fonction pour afficher le média précédent
 function previousMedia() {
-    // Vérification pour éviter de dépasser la fin de la liste
     if (index < mediaList.length - 1) {
         index = index + 1;
-        // Appel de la fonction pour afficher le média
         displayMedia();
     }
 }

@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -12,33 +12,34 @@
 
 <body>
   <header class="top_pages" role=”banner”>
-    <a href="./index.html" aria-label="Retourner à la page d'accueil">
+    <a href="./index.html" aria-label="Retourner à la page d'accueil" tabindex="0">
       <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" />
     </a>
   </header>
   <main id="main">
     <div class="photograph-header">
-      <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      <button class="contact_button" aria-label="cliquer ici pour ouvrir le formulaire de contact" tabindex="0"
+        onclick="displayModal()">Contactez-moi</button>
     </div>
     <div class="filter">
       <span class="filter_title">Trier par</span>
-        <div class="dropdown">
-          <button class="btn_list" type="button" role="button">
-            <span id="current_filter">Popularité</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <ul class="dropdown_content" aria-hidden="true" role="listbox">
-            <li role="option">
-              <button type="button">Titre</button>
-            </li>
-            <li role="option">
-              <button type="button">Popularité</button>
-            </li>
-            <li role="option">
-              <button type="button">Date</button>
-            </li>
-          </ul>
-        </div>
+      <div class="dropdown">
+        <button class="btn_list" type="button" role="button">
+          <span id="current_filter">Popularité</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <ul class="dropdown_content" aria-hidden="true" role="listbox">
+          <li role="option">
+            <button type="button">Titre</button>
+          </li>
+          <li role="option">
+            <button type="button">Popularité</button>
+          </li>
+          <li role="option">
+            <button type="button">Date</button>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="fixed-block">
       <div class="nbr-likes">
@@ -84,8 +85,7 @@
           aria-required="true" />
 
         <label for="message">Votre message</label>
-        <textarea class="message" id="message" name="message" maxlength="200"
-          data-error="Votre message doit contenir entre 20 et 200 caractères." required></textarea>
+        <textarea class="message" id="message" name="message" maxlength="500" required></textarea>
 
         <button class="contact_button validation">Envoyer</button>
       </form>

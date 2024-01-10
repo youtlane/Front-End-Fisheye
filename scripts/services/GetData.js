@@ -1,5 +1,5 @@
 /**
- * Classe service pour gérer les données
+ * Class service pour gérer les données
  */
 export class GetData {
     /*
@@ -8,9 +8,6 @@ export class GetData {
     async getDataFromUrl() {
         const data = await fetch("./data/photographers.json"); //Récupération du contenu de la requete http
         const dataJson = await data.json(); //transformation du resultat en format json
-
-        console.log("je suis la", dataJson);
-
         return (dataJson); // retourn les donnees du fichier json
     }
 }

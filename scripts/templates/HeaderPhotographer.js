@@ -7,7 +7,7 @@ export class HeaderPhotographer {
         priceContent.innerHTML = photographer.price;
 
         const personelInfos = `
-            <div class="photographer-infos">
+            <div class="photographer-infos" tabindex="0" >
                 <h1 class="name name-xl">${photographer.name}</h1>
                 <span class="localisation localisation-xl">${photographer.city}, ${photographer.country}</span>
                 <p class="tag tag-xl">${photographer.tagline}</p>

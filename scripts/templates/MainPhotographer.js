@@ -16,7 +16,6 @@ export class MainPhotographer {
         } else if (media instanceof Video) {
             mediaElement = `<video class="photographer_work" id="media-${media.id}" src="./assets/work/${photographerName}/${media.video}" title="${media.title}"></video>`;
         }
-
         const photographWork = `
             <article class="card">
                     <a class="link_media">
@@ -32,7 +31,6 @@ export class MainPhotographer {
             </article>
         `;
         section.insertAdjacentHTML('afterbegin', photographWork);
-        //section.innerHTML = photographWork;
         return photographWork;
     }
 
