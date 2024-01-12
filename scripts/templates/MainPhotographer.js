@@ -7,7 +7,7 @@ export class MainPhotographer {
         this.mediasPhotographer = mediasPhotographer;
     }
 
-    contentPagePhotographer(media) {
+    contentPagePhotographer(media, index) {
         const photographerName = this.thePhotographer.name.split(' ')[0].replace('-', ' ');
         const section = document.querySelector(".main_content");
         let mediaElement = '';
@@ -17,12 +17,12 @@ export class MainPhotographer {
             mediaElement = `<video class="photographer_work" id="media-${media.id}" src="./assets/work/${photographerName}/${media.video}" title="${media.title}"></video>`;
         }
         const photographWork = `
-            <article class="card">
+            <article class="card" tabindex="${index}">
                     <a class="link_media">
                         ${mediaElement}
                         <div class="card-footer">
                             <h2 class="title_media">${media.title}</h2>
-                            <aside class="card-aside">
+                            <aside class="card-aside" aria-label="Likes">
                                 <span id="nbrLikes-${media.id}" class="nbrLikes">${media.likes}</span> 
                                 <span id="like-${media.id}" class="fas fa-heart" aria-hidden="true"></span>
                             </aside>

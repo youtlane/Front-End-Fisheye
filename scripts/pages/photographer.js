@@ -4,6 +4,7 @@ import { HeaderPhotographer } from "../templates/HeaderPhotographer.js";
 import { MediaFactory } from "../factories/MediaFactory.js";
 import { MainPhotographer } from "../templates/MainPhotographer.js";
 import { displayLightbox } from "../utils/lightbox.js"
+import { submit, displayModal, closeModal } from '../utils/contactForm.js'
 
 /*************************************************************************************************************/
 const dataService = new GetData();
@@ -14,20 +15,25 @@ let mainPhotographer = new MainPhotographer();
 
 /*************************************************************************************************************/
 async function displayPhotographerPage() {
-    const { thePhotographer, mediasPhotographer } = await init();
+    const { thePhotographer } = await init();
     const header = new HeaderPhotographer();
     header.headerPagePhotographer(thePhotographer);
-    displayMedias(thePhotographer, mediasPhotographer);
+
+    // trier par défaut par popularité et afficher la liste des medias
+    sortAndDisplayMedias('Popularité');
     const filterMenu = document.querySelector(".modal_name");
-    filterMenu.innerHTML = thePhotographer.name;
+    filterMenu.insertAdjacentHTML('afterbegin', thePhotographer.name);
 }
+
 
 function displayMedias(thePhotographer, mediasPhotographer) {
     mainPhotographer.thePhotographer = thePhotographer
     mainPhotographer.mediasPhotographer = mediasPhotographer;
+    let index = mediasPhotographer.length + 5;
     mediasPhotographer
         .forEach(m => {
-            mainPhotographer.contentPagePhotographer(m);
+            index--;
+            mainPhotographer.contentPagePhotographer(m, index);
             addLikeEventListeners(m); // ajouter les écouteurs d'événements après l'affichage
         });
 
@@ -40,7 +46,7 @@ function addLikeEventListeners(media) {
     const like = document.getElementById('like-' + media.id);
     like.addEventListener('click', (event) => handleLikeClick(event, media));
     const img = document.getElementById('media-' + media.id);
-    img.addEventListener('click', (event) => handleImgClick(media));
+    img.addEventListener('click', () => handleImgClick(media));
 }
 
 /*************************************************************************************************************/
@@ -62,7 +68,7 @@ async function init() {
 /*
     permer de trier les médias par option selectionné
 */
-export function sortMedias(selectedOption) {
+export function sortAndDisplayMedias(selectedOption) {
     let sortedMediasPhotographer;
 
     // Sélection de l'option de tri
@@ -74,8 +80,13 @@ export function sortMedias(selectedOption) {
         sortedMediasPhotographer = mediaData.slice().sort((a, b) => b.title.localeCompare(a.title));
     }
 
+    mediaData = sortedMediasPhotographer;
     const section = document.querySelector(".main_content");
-    section.innerHTML = '';
+
+    // Clear existing content
+    while (section.firstChild) {
+        section.removeChild(section.firstChild);
+    }
     displayMedias(photographerData, sortedMediasPhotographer);
 }
 
@@ -91,7 +102,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function listFilterMenu(filterMenuButton) {
     const filterMenu = document.querySelector(".dropdown_content");
-    const filterButtons = document.querySelectorAll(".dropdown_content button");
 
     // Attribut du boutton filterMenuButton qui permet de voir si la liste est déjà dépilé
     const isExpanded = filterMenuButton.getAttribute("aria-expanded") === "true";
@@ -106,10 +116,6 @@ function listFilterMenu(filterMenuButton) {
 
     const newAriaHiddenValue = filterMenu.style.display === "none" ? "true" : "false";
     filterMenu.setAttribute("aria-hidden", newAriaHiddenValue);
-
-    const newTabIndexValue = filterMenu.style.display === "none" ? "-1" : "0";
-    filterButtons.forEach(button => button.setAttribute("tabindex", newTabIndexValue));
-
 }
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -133,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             filterAlreadySelected = filter;
-            sortMedias(filter.textContent);
+            sortAndDisplayMedias(filter.textContent);
 
             listFilterMenu(filterMenuButton);
         });
@@ -147,44 +153,36 @@ document.addEventListener('DOMContentLoaded', function () {
  */
 
 document.addEventListener('DOMContentLoaded', function () {
-    const btnForm = document.querySelector('.contact_button');
+    const btnForm = document.querySelector('#contact-form');
+    const btnCloseModalForm = document.querySelector('#close-modal');
+    const btnDisplayModalForm = document.querySelector('#display-modal');
 
-    btnForm.addEventListener('click', function (event) {
-        event.preventDefault(); // Empêche le comportement par défaut du formulaire
+    // Ouvrir le formulaire (bouton contact)
+    btnDisplayModalForm
+        .addEventListener('click', () => displayModal());
 
-        // Récupère les données du formulaire
-        const firstName = document.getElementById('first-name').value;
-        const lastName = document.getElementById('last-name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
+    // Fermer le formulaire (clic croix sur le modal)
+    btnCloseModalForm
+        .addEventListener('click', () => closeModal())
 
-        // Valide les données
-        if (firstName.length < 2) {
-            console.log("Le prénom doit avoir au moins 2 caractères.");
-            return;
+    // Fermer le formulaire (entrer croix sur le modal)
+    btnCloseModalForm.addEventListener('keypress', e => {
+        if (e.key === 'Escape') {
+            closeModal();
         }
-
-        if (lastName.length < 2) {
-            console.log("Le nom doit avoir au moins 2 caractères.");
-            return;
-        }
-        // Utilise une expression régulière pour valider le format de l'email
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            console.log("Veuillez saisir une adresse e-mail valide.");
-            return;
-        }
-        if (message.length < 20 || message.length > 500) {
-            console.log("Le message doit contenir entre 20 et 500 caractères.");
-            return;
-        }
-        // Si toutes les validations passent, affiche les données dans la console
-        console.log('Prénom:', firstName);
-        console.log('Nom:', lastName);
-        console.log('Email:', email);
-        console.log('Message:', message);
-
     });
+
+    // Soumission du formulaire
+    btnForm.addEventListener('submit', e => {
+        e.preventDefault()
+
+        if (submit(e) === true) {
+            console.log('Formulaire envoyé')
+        } else {
+            console.log('Erreur dans le formulaire')
+        }
+    });
+
 });
 
 /*************************************************************************************************************/
@@ -215,13 +213,19 @@ function handleLikeClick(event, media) {
 
 function handleImgClick(media) {
     displayLightbox(media, mainPhotographer.thePhotographer, mediaData);
-
     updateNbrLikes();
 }
 
+/**
+ * MAJ nombre like globale après clique sur boutton like d'un media
+ */
 function updateNbrLikes() {
     const nbrLikes = document.querySelector(".nbr-likes-content");
-    nbrLikes.innerHTML = mainPhotographer.countLikesMedias();
+    // Clear existing content
+    while (nbrLikes.firstChild) {
+        nbrLikes.removeChild(nbrLikes.firstChild);
+    }
+    nbrLikes.insertAdjacentHTML('afterbegin', mainPhotographer.countLikesMedias());
 }
 
 displayPhotographerPage();

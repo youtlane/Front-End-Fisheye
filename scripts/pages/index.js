@@ -18,10 +18,10 @@ async function getPhotographers() {
  */
 async function displayData(photographers) {
     const photographersSection = document.querySelector(".photographer_section");
-    photographers.forEach((photographer , tab) => {
-        const tabNumer = 2 + tab;
+    photographers.forEach((photographer, tab) => {
+        const tabNumer = tab + 1;
         const photograph = new Photographer(photographer);
-        const photographerCardDOM = photographerService.getPhotographerTemplate(photograph ,tabNumer);
+        const photographerCardDOM = photographerService.getPhotographerTemplate(photograph, tabNumer);
         photographersSection.appendChild(photographerCardDOM);
     });
 }

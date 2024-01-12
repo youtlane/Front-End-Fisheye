@@ -12,23 +12,23 @@
 
 <body>
   <header class="top_pages" role=”banner”>
-    <a href="./index.html" aria-label="Retourner à la page d'accueil" tabindex="0">
+    <a href="./index.html" tabindex="1" aria-label="Retourner à la page d'accueil">
       <img src="assets/images/logo.png" class="logo" alt="Fisheye Home page" />
     </a>
   </header>
   <main id="main">
     <div class="photograph-header">
-      <button class="contact_button" aria-label="cliquer ici pour ouvrir le formulaire de contact" tabindex="0"
-        onclick="displayModal()">Contactez-moi</button>
+      <button class="contact_button" aria-label="cliquer ici pour ouvrir le formulaire de contact" tabindex="2"
+        id="display-modal">Contactez-moi</button>
     </div>
-    <div class="filter">
+    <div class="filter" tabindex="4">
       <span class="filter_title">Trier par</span>
       <div class="dropdown">
         <button class="btn_list" type="button" role="button">
           <span id="current_filter">Popularité</span>
           <i class="fas fa-chevron-down"></i>
         </button>
-        <ul class="dropdown_content" aria-hidden="true" role="listbox">
+        <ul class="dropdown_content" role="listbox">
           <li role="option">
             <button type="button">Titre</button>
           </li>
@@ -55,46 +55,45 @@
       <section class="main_content grid-container"></section>
     </div>
     <!--lightbox-->
-    <div class="lightbox_wrapper wrapper" aria-modal="true" role="dialog">
+    <div class="lightbox_wrapper wrapper" aria-modal="true" id="lightbox-modal" role="dialog">
       <div class="lightbox">
-        <img class="close-btn" src="assets/icons/close-lightbox.svg" alt="button pour fermer" />
-        <img class="btn_next" src="assets/icons/next.svg" alt="button pour l'image suivante" />
-        <img class="btn_prev" src="assets/icons/prev.svg" alt="button pour l'mage précédente" />
+        <img class="close-btn" tabindex="6" src="assets/icons/close-lightbox.svg" alt="button pour fermer" />
+        <img class="btn_next" tabindex="5" src="assets/icons/next.svg" alt="button pour l'image suivante" />
+        <img class="btn_prev" tabindex="4" src="assets/icons/prev.svg" alt="button pour l'mage précédente" />
         <figure class="lightbox_media"></figure>
       </div>
     </div>
-  </main>
+  </main>     
   <div id="contact_modal">
     <div class="modal">
       <header class="modal_header">
         <h2>Contactez-moi</h2>
-        <img src="assets/icons/close.svg" alt="button pour fermer le modal" onclick="closeModal()" />
+        <img src="assets/icons/close.svg" id="close-modal" tabindex="5" alt="button pour fermer le modal"/>
       </header>
       <span class="modal_name"></span>
-      <form>
+      <form method="dialog" id="contact-form">
         <label for="first-name">Prénom</label>
-        <input class="text-control" type="text" id="first-name" name="first-name" aria-labelledby="first-name" required
+        <input class="text-control" type="text" tabindex="0" id="first-name" name="first-name" aria-labelledby="first-name" required
           aria-required="true" />
 
         <label for="last-name">Nom</label>
-        <input class="text-control" type="text" id="last-name" name="last-name" aria-labelledby="last-name" required
+        <input class="text-control" type="text" tabindex="1" id="last-name" name="last-name" aria-labelledby="last-name" required
           aria-required="true" />
 
         <label for="email">Email</label>
-        <input class="text-control" type="Email" id="email" name="email" aria-labelledby="email" required
+        <input class="text-control" type="Email" tabindex="2" id="email" name="email" aria-labelledby="email" required
           aria-required="true" />
 
         <label for="message">Votre message</label>
-        <textarea class="message" id="message" name="message" maxlength="500" required></textarea>
+        <textarea class="message" id="message" tabindex="3" name="message" maxlength="500" required></textarea>
 
-        <button class="contact_button validation">Envoyer</button>
+        <button type="submit" class="contact_button validation" tabindex="4" id="contact-submit" aria-label="Send form">Envoyer</button>
       </form>
 
     </div>
   </div>
 
   <script type="module" src="./scripts/pages/photographer.js"></script>
-  <script src="./scripts/utils/contactForm.js"></script>
 </body>
 
 </html>
