@@ -6,7 +6,6 @@ export class MainPhotographer {
         this.thePhotographer = thePhotographer;
         this.mediasPhotographer = mediasPhotographer;
     }
-
     contentPagePhotographer(media, index) {
         const photographerName = this.thePhotographer.name.split(' ')[0].replace('-', ' ');
         const section = document.querySelector(".main_content");

@@ -2,19 +2,22 @@ const modal = document.getElementById("contact_modal");
 
 const displayModal = () => {
     modal.style.display = "block";
-    modal.ariaHidden = 'false'
+    modal.ariaHidden = 'false';
 
     // Set focus to the first interactive element within the lightbox
     const firstInteractiveElement = modal.querySelector('[tabindex="1"]');
     if (firstInteractiveElement) {
         firstInteractiveElement.focus();
-    } 
+    }
+    document.addEventListener('keydown', handleKeyPress);
 }
 
 const closeModal = () => {
-    document.body.removeEventListener('focus', accessibilityFocus, true)
+    
     modal.style.display = "none";
-    modal.ariaHidden = 'true'
+    modal.ariaHidden = 'true';
+    document.removeEventListener('keydown', handleKeyPress);
+
 }   
 
 
@@ -53,21 +56,26 @@ const submit = () => {
     console.log('Email:', email);
     console.log('Message:', message);
 
-    document.querySelector('#contact_modal').style.display = 'none'
-    return true
+    document.querySelector('#contact_modal').style.display = 'none';
+    document.removeEventListener('keydown', handleKeyPress);
+    closeModal();
+    return true;
 }
 
-// Garder le focus dans le modal
-const accessibilityFocus = (event) => {
-    const modalNodes = modal.getElementsByTagName('*');
-    const isInclude = Array.from(modalNodes).filter(e =>
-      e.isEqualNode(event.target)
-    );
+const handleKeyPress = (event) => {
+    const focusableElements = modal.querySelectorAll('[tabindex]');
+    const focusedElement = document.activeElement;
+    const currentIndex = Array.from(focusableElements).indexOf(focusedElement);
 
-    if (isInclude.length === 0) {
-        document.querySelector('#first-name').focus();
+    if (event.key === 'Tab') {
+        event.preventDefault();
+        const nextIndex = (currentIndex + 1) % focusableElements.length;
+        focusableElements[nextIndex].focus();
+    } else if (event.key === 'Escape') {
+        closeModal();
     }
-  }
+}
+
 
 export {
     displayModal,
